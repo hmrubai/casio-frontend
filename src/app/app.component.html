@@ -1,0 +1,14 @@
+
+
+<div id="wrapper">
+    <app-sidebar-nav *ngIf="is_authenticated"></app-sidebar-nav>
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <app-top-nav *ngIf="is_authenticated"></app-top-nav>
+            <div class="container-fluid">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+        <app-footer *ngIf="is_authenticated"></app-footer>
+    </div>
+</div>

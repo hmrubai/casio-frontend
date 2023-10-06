@@ -1,0 +1,54 @@
+<div class="row justify-content-center mt-5 mb-5">
+    <div class="col-xl-8 col-lg-12 col-md-9">
+        <div class="card o-hidden border-0 shadow-lg my-5 mb-5">
+            <div class="card-body p-0">
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 mt-3 d-none d-lg-block bg-login-image">
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4 mt-5">Welcome to CASIO!</h1>
+                            </div>
+                            <form class="user" [formGroup]="LoginForm">
+                                <div class="form-group login-input">
+                                    <input type="email" class="form-control form-control-user" formControlName="username"
+                                    [ngClass]="{ 'is-invalid': submitted && f['username'].errors }"
+                                        aria-describedby="emailHelp"
+                                        placeholder="Enter Email Address...">
+                                </div>
+                                <div class="input-group mb-2">
+                                  <div *ngIf="submitted && f['username'].errors" class="error-text">
+                                    <span *ngIf="f['username'].errors?.['required']" class="text-danger error-level"> Email is required</span>
+                                  </div>
+                                </div>
+                                <div class="form-group login-input">
+                                    <input type="password" class="form-control form-control-user" formControlName="password"
+                                    [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" placeholder="Password">
+                                </div>
+                                <div class="input-group mb-2">
+                                  <div *ngIf="submitted && f['password'].errors" class="error-text">
+                                    <span *ngIf="f['password'].errors?.['required']" class="text-danger error-level"> Password is required</span>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox small">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck">
+                                        <label class="custom-control-label" for="customCheck">Remember Me</label>
+                                    </div>
+                                </div>
+                                <button (click)="onLoginSubmit()" class="btn btn-primary btn-user btn-block">
+                                    Login
+                                </button>
+                                <hr>
+                            </form>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+  <block-ui></block-ui>
