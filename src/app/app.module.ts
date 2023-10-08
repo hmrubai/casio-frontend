@@ -10,6 +10,7 @@ import { IndexComponent } from './index/index.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ClassListComponent } from './class-list/class-list.component';
+import { ChapterListComponent } from './chapter-list/chapter-list.component';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
@@ -35,7 +36,8 @@ import { TruncatePipe } from './_helpers/truncate-pipe';
     IndexComponent,
     LoginComponent,
     RegisterComponent,
-    ClassListComponent
+    ClassListComponent,
+    ChapterListComponent
   ],
   imports: [
     CommonModule,

@@ -25,6 +25,15 @@ const routes: Routes = [
             }
         ]
     },
+    {
+        path: 'chapter-list', 
+        children: [
+            {
+                path: '',
+                loadChildren: () => import('./chapter-list/chapter-list.module').then(m => m.ChapterListModule)
+            }
+        ]
+    },
     { path: 'register', component: RegisterComponent },
 ];
 

@@ -1,14 +1,20 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Class List</h1>
+    <h1 class="h3 mb-0 text-gray-800">Chapter List</h1>
 </div>
 <div class="row">
     <div class="col-xl-12 col-lg-12">
         <div class="card shadow mb-4">
-            <div class="card-header py-2 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary"> All Class List</h6>
-                <a (click)="openModal(template)" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                    <i class="fas fa-plus fa-sm text-white-50"></i> Add New Class
+            <div class="card-header py-2">
+                <h6 class="m-0 font-weight-bold text-primary d-inline"> All Chapter List</h6>
+                <a (click)="openModal(template)" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm action-top-btn float-end">
+                    <i class="fas fa-plus fa-sm text-white-50"></i> Add New Chapter
                 </a>
+                <ng-select [items]="classList" (change)="onChangeClass($event)"
+                    class="col-lg-3 float-end"
+                    bindLabel="name" 
+                    bindValue="id" 
+                    placeholder="Select Class">
+                </ng-select>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -22,7 +28,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr  *ngFor="let item of classList; let i = index;">
+                        <tr  *ngFor="let item of chapterList; let i = index;">
                             <td>{{ item.name }}</td>
                             <td>{{ item.description }}</td>
                             <td>
@@ -30,22 +36,22 @@
                               <span *ngIf="!item.is_active" class="badge badge-pill badge-secondary">Inactive</span>
                             </td>
                             <td>
-                              <a (click)="openEditModal(item, template)" class="btn btn-primary btn-icon-split btn-sm mx-2">
-                                  <span class="icon text-white-50">
-                                      <i class="fas fa-pencil"></i>
-                                  </span>
-                                  <span class="text">Edit</span>
-                              </a>
+                                <a (click)="openEditModal(item, template)" class="btn btn-primary btn-icon-split btn-sm mx-2">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-pencil"></i>
+                                    </span>
+                                    <span class="text">Edit</span>
+                                </a>
 
-                              <a (click)="deleteConfirmModal(item, confirmDeleteTemplate)" class="btn btn-danger btn-icon-split btn-sm">
-                                <span class="icon text-white-50">
-                                    <i class="fas fa-trash"></i>
-                                </span>
-                                <span class="text">Delete</span>
-                            </a>
+                                <a (click)="deleteConfirmModal(item, confirmDeleteTemplate)" class="btn btn-danger btn-icon-split btn-sm">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-trash"></i>
+                                    </span>
+                                    <span class="text">Delete</span>
+                                </a>
                             </td>
                         </tr>
-                        <tr *ngIf="classList.length <= 0">
+                        <tr *ngIf="chapterList.length <= 0">
                             <td colspan="4">
                                 <span>No Data Found!</span>
                             </td>
@@ -67,14 +73,30 @@
   </div>
   <div class="modal-body">
     <form class="p-4 mb-2" [formGroup]="entryForm">
-        <h6 class="">Class Name</h6>
+        <h6 class="">Class</h6>
         <div class="input-group login-input">
-            <input type="text" class="form-control" formControlName="class_name"
-                [ngClass]="{ 'is-invalid': submitted && f['class_name'].errors }" placeholder="Class Name" autocomplete="off">
+            <ng-select [items]="classList"
+                class="input-select"
+                bindLabel="name" 
+                bindValue="id" 
+                formControlName="class_id"
+                placeholder="Select Class"
+                [ngClass]="{ 'is-invalid': submitted && f['class_id'].errors }">
+            </ng-select>
         </div>
         <div class="input-group mb-3">
-            <div *ngIf="submitted && f['class_name'].errors" class="error-text">
-                <span *ngIf="f['class_name'].errors?.['required']" class="text-danger error-level"> Class Name is required</span>
+            <div *ngIf="submitted && f['class_id'].errors" class="error-text">
+                <span *ngIf="f['class_id'].errors?.['required']" class="text-danger error-level"> Chapter Name is required</span>
+            </div>
+        </div>
+        <h6 class="">Chapter Name</h6>
+        <div class="input-group login-input">
+            <input type="text" class="form-control" formControlName="name"
+                [ngClass]="{ 'is-invalid': submitted && f['name'].errors }" placeholder="Chapter Name" autocomplete="off">
+        </div>
+        <div class="input-group mb-3">
+            <div *ngIf="submitted && f['name'].errors" class="error-text">
+                <span *ngIf="f['name'].errors?.['required']" class="text-danger error-level"> Chapter Name is required</span>
             </div>
         </div>
         <h6 class="">Description</h6>
@@ -108,7 +130,7 @@
 
 <ng-template #confirmDeleteTemplate>
   <div class="modal-body text-center">
-    <p class="text-danger">Do you want to delete class?</p>
+    <p class="text-danger">Do you want to delete Chapter?</p>
     <button type="button" class="btn btn-outline-danger mx-2" (click)="confirmDelete()" >Delete</button>
     <button type="button" class="btn btn-outline-secondary" (click)="declineDelete()" >No</button>
   </div>

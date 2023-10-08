@@ -9,16 +9,16 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { NgPlural } from '@angular/common';
 
 @Component({
-    selector: 'app-class-list',
-    templateUrl: './class-list.component.html',
-    styleUrls: ['./class-list.component.scss']
+    selector: 'app-chapter-list',
+    templateUrl: './chapter-list.component.html',
+    styleUrls: ['./chapter-list.component.scss']
 })
-export class ClassListComponent implements OnInit {
+export class ChapterListComponent implements OnInit {
     entryForm: FormGroup;
     modalRef?: BsModalRef;
+    modalTitle = "Add New Chapter";
     submitted = false;
     returnUrl: string;
-    modalTitle = "Add New Class";
     is_authenticated = false;
     currentUser: any = null;
 
@@ -28,6 +28,7 @@ export class ClassListComponent implements OnInit {
     files = [];
 
     classList: Array<any> = [];
+    chapterList: Array<any> = [];
     is_loaded = false;
 
     class_id;
@@ -49,7 +50,8 @@ export class ClassListComponent implements OnInit {
     ngOnInit(): void {
         this.entryForm = this.formBuilder.group({
             id: [null],
-            class_name: [null, [Validators.required]],
+            class_id: [null, [Validators.required]],
+            name: [null, [Validators.required]],
             description: [null],
             thumbnail: [''],
             is_active: [true]
@@ -60,6 +62,7 @@ export class ClassListComponent implements OnInit {
             this.router.navigate(['/loggin']);
         }
 
+        this.getChapterList();
         this.getClassList();
     }
 
@@ -71,6 +74,33 @@ export class ClassListComponent implements OnInit {
         this.blockUI.start('Loading...');
         this._service.get('admin/class-list').subscribe(res => {
             this.classList = res.data;
+            this.is_loaded = true;
+            this.blockUI.stop();
+        }, err => {
+            this.blockUI.stop();
+        }
+        );
+    }
+
+    onChangeClass(event){
+        if(!event){
+            this.getChapterList();
+            return;
+        }
+        this.blockUI.start('Loading...');
+        this._service.get('admin/chapter-list-by-id/' + event.id).subscribe(res => {
+            this.chapterList = res.data;
+            this.is_loaded = true;
+            this.blockUI.stop();
+        }, err => {
+            this.blockUI.stop();
+        });
+    }
+
+    getChapterList() {
+        this.blockUI.start('Loading...');
+        this._service.get('admin/chapter-list').subscribe(res => {
+            this.chapterList = res.data;
             this.is_loaded = true;
             this.blockUI.stop();
         }, err => {
@@ -108,10 +138,11 @@ export class ClassListComponent implements OnInit {
 
         let params = {
             id: this.entryForm.value.id,
-            name: this.entryForm.value.class_name,
+            name: this.entryForm.value.name,
             description: this.entryForm.value.description,
-            name_bn: this.entryForm.value.class_name,
+            name_bn: this.entryForm.value.name,
             description_bn: this.entryForm.value.description,
+            class_id: this.entryForm.value.class_id,
             is_active: this.entryForm.value.is_active,
         }
 
@@ -128,7 +159,7 @@ export class ClassListComponent implements OnInit {
             res => {
                 this.blockUI.stop();
                 this.modalHide();
-                this.getClassList();
+                this.getChapterList();
                 this.toastr.success(res.message, 'Success!', { timeOut: 3000 });
                 this.urls = [];
                 this.files = [];
@@ -165,7 +196,7 @@ export class ClassListComponent implements OnInit {
             this.toastr.success(res.message, 'Success!', { timeOut: 2000 });
             this.blockUI.stop();
             this.modalHide();
-            this.getClassList();
+            this.getChapterList();
             this.class_id = null;
         }, err => {
             this.blockUI.stop();
@@ -175,9 +206,10 @@ export class ClassListComponent implements OnInit {
 
     openEditModal(item: any, template: TemplateRef<any>) 
     {
-        this.modalTitle = "Update Class";
+        this.modalTitle = "Update Chapter";
         this.entryForm.controls['id'].setValue(item.id);
-        this.entryForm.controls['class_name'].setValue(item.name);
+        this.entryForm.controls['class_id'].setValue(item.class_id);
+        this.entryForm.controls['name'].setValue(item.name);
         this.entryForm.controls['description'].setValue(item.description);
         this.entryForm.controls['is_active'].setValue(item.is_active);
 
@@ -234,8 +266,8 @@ export class ClassListComponent implements OnInit {
     }
 
     modalHide() {
+        this.modalTitle = "Add New Chapter";
         this.entryForm.controls['id'].setValue(null);
-        this.modalTitle = "Add New Class";
         this.submitted = false;
         this.modalRef?.hide();
         this.entryForm.reset();
