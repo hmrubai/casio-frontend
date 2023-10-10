@@ -11,6 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ClassListComponent } from './class-list/class-list.component';
 import { ChapterListComponent } from './chapter-list/chapter-list.component';
+import { NotificationListComponent } from './notification-list/notification-list.component';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
@@ -37,7 +38,8 @@ import { TruncatePipe } from './_helpers/truncate-pipe';
     LoginComponent,
     RegisterComponent,
     ClassListComponent,
-    ChapterListComponent
+    ChapterListComponent,
+    NotificationListComponent
   ],
   imports: [
     CommonModule,

@@ -34,6 +34,15 @@ const routes: Routes = [
             }
         ]
     },
+    {
+        path: 'notification-list', 
+        children: [
+            {
+                path: '',
+                loadChildren: () => import('./notification-list/notification-list.module').then(m => m.NotificationListModule)
+            }
+        ]
+    },
     { path: 'register', component: RegisterComponent },
 ];
 
