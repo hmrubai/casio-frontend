@@ -14,6 +14,7 @@ import { ChapterListComponent } from './chapter-list/chapter-list.component';
 import { NotificationListComponent } from './notification-list/notification-list.component';
 import { TopicListComponent } from './topic-list/topic-list.component';
 import { SHopListComponent } from './shop-list/shop-list.component';
+import { QueryListComponent } from './query-list/query-list.component';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
@@ -43,7 +44,8 @@ import { TruncatePipe } from './_helpers/truncate-pipe';
     ChapterListComponent,
     NotificationListComponent,
     TopicListComponent,
-    SHopListComponent
+    SHopListComponent,
+    QueryListComponent
   ],
   imports: [
     CommonModule,

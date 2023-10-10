@@ -1,10 +1,9 @@
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-    <button id="sidebarToggleTop"
+    <button id="sidebarToggleTop" (click)="openModal(menuTemplate)"
         class="btn btn-link d-md-none rounded-circle mr-3">
         <i class="fa fa-bars"></i>
     </button>
-    <form
-        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
         <div class="input-group">
             <input type="text"
                 class="form-control bg-light border-0 small"
@@ -62,29 +61,94 @@
             <div
                 class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#">
-                    <i
-                        class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Profile
                 </a>
                 <a class="dropdown-item" href="#">
-                    <i
-                        class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                     Settings
                 </a>
                 <a class="dropdown-item" href="#">
-                    <i
-                        class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                     Activity Log
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#"
                     data-toggle="modal"
                     data-target="#logoutModal">
-                    <i
-                        class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                     Logout
                 </a>
             </div>
         </li>
     </ul>
 </nav>
+
+<ng-template #menuTemplate>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">
+            <div class="sidebar-brand-text mx-3">
+                <i class="fa-solid fa-calculator rotate-n-15"></i> CASIO Admin 
+            </div>
+        </h4>
+        <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+          <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body menu-custom-modal">
+        <div class="col-lg-12">
+            <ul class="location">
+               <li>
+                <a [routerLink]="['/index']" (click)="modalRef?.hide()"><i class="fas fa-fw fa-tachometer-alt"></i><span> Dashboard</span></a>
+               </li>
+               <li>
+                    <a [routerLink]="['/class-list']" (click)="modalRef?.hide()">
+                        <i class="fas fa-fw fa-list"></i>
+                        <span> Class List</span>
+                    </a>
+               </li>
+               <li>
+                    <a [routerLink]="['/chapter-list']" (click)="modalRef?.hide()">
+                        <i class="fas fa-fw fa-book"></i>
+                        <span> Chapter List</span>
+                    </a>
+               </li>
+               <li>
+                    <a class="nav-link" [routerLink]="['/topic-list']" (click)="modalRef?.hide()">
+                        <i class="fas fa-fw fa-clipboard-list"></i>
+                        <span> Topic List</span>
+                    </a>
+               </li>
+               <li>
+                    <a class="nav-link" [routerLink]="['/shop-list']" (click)="modalRef?.hide()">
+                        <i class="fa-solid fa-store"></i>
+                        <span> Store/Dealer List</span>
+                    </a>
+               </li>
+               <li>
+                    <a class="nav-link" [routerLink]="['/query-list']" (click)="modalRef?.hide()">
+                        <i class="fa-solid fa-clipboard-question"></i>
+                        <span> Query List</span>
+                    </a>
+               </li>
+               <li>
+                    <a class="nav-link" [routerLink]="['/notification-list']" (click)="modalRef?.hide()">
+                        <i class="fas fa-fw fa-bell"></i>
+                        <span> Notifications</span>
+                    </a>
+               </li>
+               <li>
+                    <a class="nav-link" (click)="userLogout()" (click)="modalRef?.hide()">
+                        <i class="fas fa-fw fa-power-off"></i>
+                        <span> Logout</span>
+                    </a>
+               </li>
+            </ul>
+         </div>
+    </div>
+  <!-- <div class="modal-body text-center">
+    <p class="text-danger">Menu</p>
+    <button type="button" class="btn btn-outline-danger mx-2" (click)="confirmGotoPage()" >Delete</button>
+    <button type="button" class="btn btn-outline-secondary" (click)="decline()" >No</button>
+  </div> -->
+</ng-template>

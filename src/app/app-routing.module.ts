@@ -61,6 +61,15 @@ const routes: Routes = [
             }
         ]
     },
+    {
+        path: 'query-list', 
+        children: [
+            {
+                path: '',
+                loadChildren: () => import('./query-list/query-list.module').then(m => m.QueryListModule)
+            }
+        ]
+    },
     { path: 'register', component: RegisterComponent },
 ];
 

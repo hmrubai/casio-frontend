@@ -1,0 +1,79 @@
+.location {
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+.location li {
+    padding: 10px 1px 6px 9px !important;
+    margin-bottom: 2px;
+    list-style: none;
+    background: linear-gradient(to left, rgb(86, 119, 252), #5677fc, #5677fc);
+}
+
+.location li img {
+    width: 20px;
+}
+
+/*normal*/
+.location li a {
+    color: #ffffff;
+    font-size: 15px;
+    padding-left: 5px;
+}
+
+.curveRight {
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.radius-4px {
+    border-radius: 5px;
+}
+
+/*radius-40*/
+.radius-40px {
+    border-radius: 40px;
+}
+
+/*curve*/
+.curve {
+    border-bottom-right-radius: 15px;
+    border-top-left-radius: 15px;
+}
+
+/*curveLeft*/
+.curveLeft {
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+}
+
+/*curveRight*/
+.curveRight {
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+/*rotate*/
+.rotate {
+    transform: skew(-21deg);
+}
+
+.location li:hover a {
+    text-decoration: none;
+    color: #dcd9d9
+}
+
+.menu-custom-modal{
+    background: #2944b4 !important;
+    flex: 0 0 auto !important;
+    padding: 0rem !important;
+}
+
+.menu-custom-modal > .col-lg-12{
+    padding: 0rem !important;
+}
+
+ol, ul, dl {
+    margin-top: 0;
+    margin-bottom: 0rem !important;
+}

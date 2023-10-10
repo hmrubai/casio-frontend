@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { AuthenticationService } from '../_services/authentication.service';
 import { environment } from '../../environments/environment';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from '../_services/common.service';
@@ -11,8 +12,9 @@ import { Cookie } from 'ng2-cookies';
     templateUrl: './top-nav.component.html',
     styleUrls: ['./top-nav.component.scss']
 })
-export class TopNavComponent implements OnInit {
-
+export class TopNavComponent implements OnInit 
+{
+    modalRef?: BsModalRef;
     is_authenticated = false;
     menuList: Array<any> = [];
     returnUrl: string;
@@ -30,6 +32,7 @@ export class TopNavComponent implements OnInit {
     constructor(
         private _service: CommonService,
         private authService: AuthenticationService,
+        private modalService: BsModalService,
         private toastr: ToastrService,
         private route: ActivatedRoute,
         private router: Router
@@ -49,6 +52,23 @@ export class TopNavComponent implements OnInit {
     ngOnInit(): void {
         // this.getMenuList();
         // this.organizationSettings();
+    }
+
+    openModal(template: TemplateRef<any>) {
+        this.modalRef = this.modalService.show(template, 
+            { 
+                class: 'modal-lg modal-dialog-centered',
+                ignoreBackdropClick: true, 
+                keyboard: false
+            });
+    }
+
+    confirmGotoPage(): void {
+        this.modalRef?.hide();
+    }
+    
+    decline(): void {
+        this.modalRef?.hide();
     }
 
     clientLogout(){
