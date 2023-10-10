@@ -21,6 +21,7 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
+                            <th>Class</th>
                             <th>Name</th>
                             <th>Description</th>
                             <th>Status</th>
@@ -29,6 +30,7 @@
                     </thead>
                     <tbody>
                         <tr  *ngFor="let item of chapterList; let i = index;">
+                            <td>{{ item.class_name }}</td>
                             <td>{{ item.name }}</td>
                             <td>{{ item.description }}</td>
                             <td>
@@ -86,7 +88,7 @@
         </div>
         <div class="input-group mb-3">
             <div *ngIf="submitted && f['class_id'].errors" class="error-text">
-                <span *ngIf="f['class_id'].errors?.['required']" class="text-danger error-level"> Chapter Name is required</span>
+                <span *ngIf="f['class_id'].errors?.['required']" class="text-danger error-level"> Class is required</span>
             </div>
         </div>
         <h6 class="">Chapter Name</h6>

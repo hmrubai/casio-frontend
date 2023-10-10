@@ -24,7 +24,7 @@ export class TopNavComponent implements OnInit {
 
     public websiteSettings: any = {};
 
-    profile_image = 'assets/img/avatars/profile.png';
+    profile_image = 'assets/img/avatars/2815428.png';
     site_logo = 'assets/images/lms_logo-1.png';
 
     constructor(

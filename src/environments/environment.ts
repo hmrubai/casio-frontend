@@ -6,7 +6,7 @@ export const environment = {
   // imageURL: 'http://api-saas.bacbonx.com/',
 
   // Local
-  apiUrl: 'http://localhost:8000/api/',
-  imageURL: 'http://localhost:8000/uploads/',
-  baseUrl: 'http://localhost:8000/api/',
+  apiUrl: 'http://127.0.0.1:8000/api/',
+  imageURL: 'http://127.0.0.1:8000/uploads/',
+  baseUrl: 'http://127.0.0.1:8000/api/',
 };

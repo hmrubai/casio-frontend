@@ -155,7 +155,7 @@ export class ChapterListComponent implements OnInit {
         formData.append('data', JSON.stringify(params));
 
         this.blockUI.start('Saving...');
-        this._service.post('admin/class-save-or-update', formData).subscribe(
+        this._service.post('admin/chapter-save-or-update', formData).subscribe(
             res => {
                 this.blockUI.stop();
                 this.modalHide();
@@ -192,7 +192,7 @@ export class ChapterListComponent implements OnInit {
             id: this.class_id
         }
 
-        this._service.post('admin/class-delete', param).subscribe(res => {
+        this._service.post('admin/chapter-delete', param).subscribe(res => {
             this.toastr.success(res.message, 'Success!', { timeOut: 2000 });
             this.blockUI.stop();
             this.modalHide();
@@ -206,6 +206,7 @@ export class ChapterListComponent implements OnInit {
 
     openEditModal(item: any, template: TemplateRef<any>) 
     {
+        console.log(item)
         this.modalTitle = "Update Chapter";
         this.entryForm.controls['id'].setValue(item.id);
         this.entryForm.controls['class_id'].setValue(item.class_id);
