@@ -43,6 +43,15 @@ const routes: Routes = [
             }
         ]
     },
+    {
+        path: 'topic-list', 
+        children: [
+            {
+                path: '',
+                loadChildren: () => import('./topic-list/topic-list.module').then(m => m.TopicListModule)
+            }
+        ]
+    },
     { path: 'register', component: RegisterComponent },
 ];
 

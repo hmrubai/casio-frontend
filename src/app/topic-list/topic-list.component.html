@@ -1,0 +1,250 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Topic List</h1>
+</div>
+<div class="row">
+    <div class="col-xl-12 col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-2">
+                <h6 class="m-0 font-weight-bold text-primary d-inline"> All Topic List</h6>
+                <a (click)="openModal(template)" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm action-top-btn float-end">
+                    <i class="fas fa-plus fa-sm text-white-50"></i> Add New Topic
+                </a>
+                <ng-select [items]="classList" (change)="onChangeClass($event)"
+                    class="col-lg-3 float-end"
+                    bindLabel="name" 
+                    bindValue="id" 
+                    placeholder="Select Class">
+                </ng-select>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Topic</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr  *ngFor="let item of topicList; let i = index;">
+                            <td>{{ item.title }}</td>
+                            <td>
+                              <span *ngIf="item.is_active" class="badge badge-pill badge-success">Active</span>
+                              <span *ngIf="!item.is_active" class="badge badge-pill badge-secondary">Inactive</span>
+                            </td>
+                            <td>
+                                <a (click)="openEditModal(item, template)" class="btn btn-primary btn-icon-split btn-sm mx-2">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-pencil"></i>
+                                    </span>
+                                    <span class="text">Edit</span>
+                                </a>
+
+                                <a (click)="deleteConfirmModal(item, confirmDeleteTemplate)" class="btn btn-danger btn-icon-split btn-sm">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-trash"></i>
+                                    </span>
+                                    <span class="text">Delete</span>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr *ngIf="topicList.length <= 0">
+                            <td colspan="3">
+                                <span>No Data Found!</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h5 class="modal-title pull-left"><i class="fa-solid fa-folder-plus"></i> {{ modalTitle }}</h5>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalHide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="p-4 mb-2" [formGroup]="entryForm">
+        <h6 class="">Class</h6>
+        <div class="input-group login-input">
+            <ng-select [items]="classList" (change)="onChangeClass($event)"
+                class="input-select"
+                bindLabel="name" 
+                bindValue="id" 
+                formControlName="class_id"
+                placeholder="Select Class"
+                [ngClass]="{ 'is-invalid': submitted && f['class_id'].errors }">
+            </ng-select>
+        </div>
+        <div class="input-group mb-3">
+            <div *ngIf="submitted && f['class_id'].errors" class="error-text">
+                <span *ngIf="f['class_id'].errors?.['required']" class="text-danger error-level"> Class is required</span>
+            </div>
+        </div>
+        <h6 class="">Chapter</h6>
+        <div class="input-group login-input">
+            <ng-select [items]="chapterList"
+                class="input-select"
+                bindLabel="name" 
+                bindValue="id" 
+                formControlName="chapter_id"
+                placeholder="Select Chapter"
+                [ngClass]="{ 'is-invalid': submitted && f['chapter_id'].errors }">
+            </ng-select>
+        </div>
+        <div class="input-group mb-3">
+            <div *ngIf="submitted && f['chapter_id'].errors" class="error-text">
+                <span *ngIf="f['chapter_id'].errors?.['required']" class="text-danger error-level"> Chapter is required</span>
+            </div>
+        </div>
+        <h6 class="">Topic Title</h6>
+        <div class="input-group login-input">
+            <input type="text" class="form-control" formControlName="title"
+                [ngClass]="{ 'is-invalid': submitted && f['title'].errors }" placeholder="title" autocomplete="off">
+        </div>
+        <div class="input-group mb-3">
+            <div *ngIf="submitted && f['title'].errors" class="error-text">
+                <span *ngIf="f['title'].errors?.['required']" class="text-danger error-level"> Title is required</span>
+            </div>
+        </div>
+        <h6 class="">Description</h6>
+        <div class="input-group login-input">
+            <textarea class="form-control" formControlName="description" [ngClass]="{ 'is-invalid': submitted && f['description'].errors }" placeholder="Description" cols="30" rows="5"></textarea>
+        </div>
+        <div class="input-group mb-3">
+            <div *ngIf="submitted && f['description'].errors" class="error-text">
+                <span *ngIf="f['description'].errors?.['required']" class="text-danger error-level"> Description is required</span>
+            </div>
+        </div>
+        <h6 class="">Author Name</h6>
+        <div class="input-group login-input">
+            <input type="text" class="form-control" formControlName="author_name"
+                [ngClass]="{ 'is-invalid': submitted && f['author_name'].errors }" placeholder="Author Name" autocomplete="off">
+        </div>
+        <div class="input-group mb-3">
+            <div *ngIf="submitted && f['author_name'].errors" class="error-text">
+                <span *ngIf="f['author_name'].errors?.['required']" class="text-danger error-level"> Author Name is required</span>
+            </div>
+        </div>
+        <h6 class="">Author Details</h6>
+        <div class="input-group login-input">
+            <input type="text" class="form-control" formControlName="author_details"
+                [ngClass]="{ 'is-invalid': submitted && f['author_details'].errors }" placeholder="Author Details" autocomplete="off">
+        </div>
+        <div class="input-group mb-3">
+            <div *ngIf="submitted && f['author_details'].errors" class="error-text">
+                <span *ngIf="f['author_details'].errors?.['required']" class="text-danger error-level"> Author Details is required</span>
+            </div>
+        </div>
+        <h6 class="">Raw Video URL</h6>
+        <div class="input-group login-input">
+            <input type="text" class="form-control" formControlName="raw_url"
+                [ngClass]="{ 'is-invalid': submitted && f['raw_url'].errors }" placeholder="Raw Video URL" autocomplete="off">
+        </div>
+        <div class="input-group mb-3">
+            <div *ngIf="submitted && f['raw_url'].errors" class="error-text">
+                <span *ngIf="f['raw_url'].errors?.['required']" class="text-danger error-level"> Raw Video URL is required</span>
+            </div>
+        </div>
+        <h6 class="">S3 URL</h6>
+        <div class="input-group login-input">
+            <input type="text" class="form-control" formControlName="s3_url"
+                [ngClass]="{ 'is-invalid': submitted && f['s3_url'].errors }" placeholder="S3 Video URL" autocomplete="off">
+        </div>
+        <div class="input-group mb-3">
+            <div *ngIf="submitted && f['s3_url'].errors" class="error-text">
+                <span *ngIf="f['s3_url'].errors?.['required']" class="text-danger error-level"> S3 Video URL is required</span>
+            </div>
+        </div>
+
+        <h6 class="">Youtube URL</h6>
+        <div class="input-group login-input">
+            <input type="text" class="form-control" formControlName="youtube_url"
+                [ngClass]="{ 'is-invalid': submitted && f['youtube_url'].errors }" placeholder="Youtube Video URL" autocomplete="off">
+        </div>
+        <div class="input-group mb-3">
+            <div *ngIf="submitted && f['youtube_url'].errors" class="error-text">
+                <span *ngIf="f['youtube_url'].errors?.['required']" class="text-danger error-level"> Youtube Video URL is required</span>
+            </div>
+        </div>
+
+        <h6 class="">Download URL</h6>
+        <div class="input-group login-input">
+            <input type="text" class="form-control" formControlName="download_url"
+                [ngClass]="{ 'is-invalid': submitted && f['download_url'].errors }" placeholder="Download URL" autocomplete="off">
+        </div>
+        <div class="input-group mb-3">
+            <div *ngIf="submitted && f['download_url'].errors" class="error-text">
+                <span *ngIf="f['download_url'].errors?.['required']" class="text-danger error-level"> Download URL is required</span>
+            </div>
+        </div>
+
+        <h6 class="">Duration</h6>
+        <div class="input-group login-input">
+            <input type="text" class="form-control" formControlName="duration"
+                [ngClass]="{ 'is-invalid': submitted && f['duration'].errors }" placeholder="Duration" autocomplete="off">
+        </div>
+        <div class="input-group mb-3">
+            <div *ngIf="submitted && f['duration'].errors" class="error-text">
+                <span *ngIf="f['duration'].errors?.['required']" class="text-danger error-level"> Duration is required</span>
+            </div>
+        </div>
+
+        <!-- <h6 class="">Rating</h6>
+        <div class="input-group login-input">
+            <input type="text" class="form-control" formControlName="rating"
+                [ngClass]="{ 'is-invalid': submitted && f['rating'].errors }" placeholder="Rating" autocomplete="off">
+        </div>
+        <div class="input-group mb-3">
+            <div *ngIf="submitted && f['rating'].errors" class="error-text">
+                <span *ngIf="f['rating'].errors?.['required']" class="text-danger error-level"> Rating is required</span>
+            </div>
+        </div> -->
+
+        <h6 class="">Sequence</h6>
+        <div class="input-group login-input">
+            <input type="text" class="form-control" formControlName="sequence"
+                [ngClass]="{ 'is-invalid': submitted && f['sequence'].errors }" placeholder="Sequence" autocomplete="off">
+        </div>
+        <div class="input-group mb-3">
+            <div *ngIf="submitted && f['sequence'].errors" class="error-text">
+                <span *ngIf="f['sequence'].errors?.['required']" class="text-danger error-level"> Sequence is required</span>
+            </div>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="file">Thumbnail</label>
+            <input formControlName="thumbnail" id="thumbnail" type="file" class="form-control" (change)="onSelectFile($event)">
+            <div *ngIf="f['thumbnail'].touched && f['thumbnail'].invalid" class="alert alert-danger">
+                <div *ngIf="f['thumbnail'].errors && f['thumbnail'].errors['required']">File is required.</div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-12">
+                <div class="custom-control custom-checkbox col-form-label">
+                  <input type="checkbox" formControlName="is_active" id="is_active" class="custom-control-input" style="left: 2px !important;" [ngClass]="{ 'is-invalid': submitted && f['is_active'].errors }">
+                  <label class="custom-control-label" for="is_active"> Is Active?</label>
+                </div>
+            </div>
+        </div>
+        <button type="submit" (click)="formSubmit()" class="btn btn-success form-control">Submit</button>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #confirmDeleteTemplate>
+  <div class="modal-body text-center">
+    <p class="text-danger">Do you want to delete Topic?</p>
+    <button type="button" class="btn btn-outline-danger mx-2" (click)="confirmDelete()" >Delete</button>
+    <button type="button" class="btn btn-outline-secondary" (click)="declineDelete()" >No</button>
+  </div>
+</ng-template>
+
+
+<block-ui></block-ui>

@@ -30,7 +30,7 @@
     </li>
     <hr class="sidebar-divider d-none d-md-block">
     <li class="nav-item">
-        <a class="nav-link" href="tables.html">
+        <a class="nav-link" [routerLink]="['/topic-list']">
             <i class="fas fa-fw fa-clipboard-list"></i>
             <span>Topic List</span>
         </a>
@@ -44,7 +44,7 @@
     </li>
     <hr class="sidebar-divider d-none d-md-block">
     <li class="nav-item">
-        <a class="nav-link" (click)="clientLogout()">
+        <a class="nav-link" (click)="userLogout()">
             <i class="fas fa-fw fa-power-off"></i>
             <span>Logout</span>
         </a>
