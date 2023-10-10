@@ -9,7 +9,7 @@
     </a>
     <hr class="sidebar-divider my-0">
     <li class="nav-item active">
-        <a class="nav-link" href="index.html"><i class="fas fa-fw fa-tachometer-alt"></i><span>Dashboard</span></a>
+        <a class="nav-link" [routerLink]="['/index']"><i class="fas fa-fw fa-tachometer-alt"></i><span>Dashboard</span></a>
     </li>
     <hr class="sidebar-divider">
     <div class="sidebar-heading mt-4">
@@ -33,6 +33,13 @@
         <a class="nav-link" [routerLink]="['/topic-list']">
             <i class="fas fa-fw fa-clipboard-list"></i>
             <span>Topic List</span>
+        </a>
+    </li>
+    <hr class="sidebar-divider d-none d-md-block">
+    <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/shop-list']">
+            <i class="fa-solid fa-store"></i>
+            <span>Store/Dealer List</span>
         </a>
     </li>
     <hr class="sidebar-divider d-none d-md-block">

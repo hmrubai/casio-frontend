@@ -52,6 +52,15 @@ const routes: Routes = [
             }
         ]
     },
+    {
+        path: 'shop-list', 
+        children: [
+            {
+                path: '',
+                loadChildren: () => import('./shop-list/shop-list.module').then(m => m.SHopListModule)
+            }
+        ]
+    },
     { path: 'register', component: RegisterComponent },
 ];
 
