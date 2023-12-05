@@ -1,13 +1,13 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Topic List</h1>
+    <h1 class="h3 mb-0 text-gray-800">Video List</h1>
 </div>
 <div class="row">
     <div class="col-xl-12 col-lg-12">
         <div class="card shadow mb-4">
             <div class="card-header py-2">
-                <h6 class="m-0 font-weight-bold text-primary d-inline"> All Topic List</h6>
+                <h6 class="m-0 font-weight-bold text-primary d-inline"> All Video List</h6>
                 <a (click)="openModal(template)" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm action-top-btn float-end">
-                    <i class="fas fa-plus fa-sm text-white-50"></i> Add New Topic
+                    <i class="fas fa-plus fa-sm text-white-50"></i> Add New Video
                 </a>
                 <!-- <ng-select [items]="classList" (change)="onChangeClass($event)"
                     class="col-lg-3 float-end"
@@ -21,7 +21,7 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Topic</th>
+                            <th>Video Title</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -71,7 +71,7 @@
   </div>
   <div class="modal-body">
     <form class="p-4 mb-2" [formGroup]="entryForm">
-        <h6 class="">Class</h6>
+        <!--<h6 class="">Class</h6>
         <div class="input-group login-input">
             <ng-select [items]="classList" (change)="onChangeClass($event)"
                 class="input-select"
@@ -86,24 +86,24 @@
             <div *ngIf="submitted && f['class_id'].errors" class="error-text">
                 <span *ngIf="f['class_id'].errors?.['required']" class="text-danger error-level"> Class is required</span>
             </div>
-        </div>
-        <h6 class="">Chapter</h6>
+        </div>-->
+        <h6 class="">Topic</h6>
         <div class="input-group login-input">
             <ng-select [items]="chapterList"
                 class="input-select"
                 bindLabel="name" 
                 bindValue="id" 
                 formControlName="chapter_id"
-                placeholder="Select Chapter"
+                placeholder="Select Topic"
                 [ngClass]="{ 'is-invalid': submitted && f['chapter_id'].errors }">
             </ng-select>
         </div>
         <div class="input-group mb-3">
             <div *ngIf="submitted && f['chapter_id'].errors" class="error-text">
-                <span *ngIf="f['chapter_id'].errors?.['required']" class="text-danger error-level"> Chapter is required</span>
+                <span *ngIf="f['chapter_id'].errors?.['required']" class="text-danger error-level"> Topic is required</span>
             </div>
         </div>
-        <h6 class="">Topic Title</h6>
+        <h6 class="">Video Title</h6>
         <div class="input-group login-input">
             <input type="text" class="form-control" formControlName="title"
                 [ngClass]="{ 'is-invalid': submitted && f['title'].errors }" placeholder="title" autocomplete="off">
@@ -122,7 +122,7 @@
                 <span *ngIf="f['description'].errors?.['required']" class="text-danger error-level"> Description is required</span>
             </div>
         </div>
-        <h6 class="">Author Name</h6>
+        <!--<h6 class="">Author Name</h6>
         <div class="input-group login-input">
             <input type="text" class="form-control" formControlName="author_name"
                 [ngClass]="{ 'is-invalid': submitted && f['author_name'].errors }" placeholder="Author Name" autocomplete="off">
@@ -141,7 +141,7 @@
             <div *ngIf="submitted && f['author_details'].errors" class="error-text">
                 <span *ngIf="f['author_details'].errors?.['required']" class="text-danger error-level"> Author Details is required</span>
             </div>
-        </div>
+        </div>-->
         <h6 class="">Raw Video URL</h6>
         <div class="input-group login-input">
             <input type="text" class="form-control" formControlName="raw_url"
@@ -163,14 +163,14 @@
             </div>
         </div>
 
-        <h6 class="">Youtube URL</h6>
+        <h6 class="">Youtube URL/ID</h6>
         <div class="input-group login-input">
             <input type="text" class="form-control" formControlName="youtube_url"
-                [ngClass]="{ 'is-invalid': submitted && f['youtube_url'].errors }" placeholder="Youtube Video URL" autocomplete="off">
+                [ngClass]="{ 'is-invalid': submitted && f['youtube_url'].errors }" placeholder="Youtube Video URL/ID" autocomplete="off">
         </div>
         <div class="input-group mb-3">
             <div *ngIf="submitted && f['youtube_url'].errors" class="error-text">
-                <span *ngIf="f['youtube_url'].errors?.['required']" class="text-danger error-level"> Youtube Video URL is required</span>
+                <span *ngIf="f['youtube_url'].errors?.['required']" class="text-danger error-level"> Youtube Video ID is required</span>
             </div>
         </div>
 
@@ -207,7 +207,7 @@
             </div>
         </div> -->
 
-        <h6 class="">Sequence</h6>
+        <!--<h6 class="">Sequence</h6>
         <div class="input-group login-input">
             <input type="text" class="form-control" formControlName="sequence"
                 [ngClass]="{ 'is-invalid': submitted && f['sequence'].errors }" placeholder="Sequence" autocomplete="off">
@@ -216,7 +216,7 @@
             <div *ngIf="submitted && f['sequence'].errors" class="error-text">
                 <span *ngIf="f['sequence'].errors?.['required']" class="text-danger error-level"> Sequence is required</span>
             </div>
-        </div>
+        </div>-->
 
         <div class="form-group mb-3">
             <label for="file">Thumbnail</label>
@@ -240,7 +240,7 @@
 
 <ng-template #confirmDeleteTemplate>
   <div class="modal-body text-center">
-    <p class="text-danger">Do you want to delete Topic?</p>
+    <p class="text-danger">Do you want to delete Video?</p>
     <button type="button" class="btn btn-outline-danger mx-2" (click)="confirmDelete()" >Delete</button>
     <button type="button" class="btn btn-outline-secondary" (click)="declineDelete()" >No</button>
   </div>

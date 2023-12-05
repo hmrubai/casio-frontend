@@ -16,7 +16,7 @@ import { NgPlural } from '@angular/common';
 export class ChapterListComponent implements OnInit {
     entryForm: FormGroup;
     modalRef?: BsModalRef;
-    modalTitle = "Add New Chapter";
+    modalTitle = "Add New Topic";
     submitted = false;
     returnUrl: string;
     is_authenticated = false;
@@ -31,7 +31,7 @@ export class ChapterListComponent implements OnInit {
     chapterList: Array<any> = [];
     is_loaded = false;
 
-    class_id;
+    chapter_id;
 
     @BlockUI() blockUI: NgBlockUI;
 
@@ -50,7 +50,7 @@ export class ChapterListComponent implements OnInit {
     ngOnInit(): void {
         this.entryForm = this.formBuilder.group({
             id: [null],
-            class_id: [null, [Validators.required]],
+            // class_id: [null, [Validators.required]],
             name: [null, [Validators.required]],
             description: [null],
             thumbnail: [''],
@@ -63,7 +63,7 @@ export class ChapterListComponent implements OnInit {
         }
 
         this.getChapterList();
-        this.getClassList();
+        //this.getClassList();
     }
 
     get f() {
@@ -142,7 +142,7 @@ export class ChapterListComponent implements OnInit {
             description: this.entryForm.value.description,
             name_bn: this.entryForm.value.name,
             description_bn: this.entryForm.value.description,
-            class_id: this.entryForm.value.class_id,
+            // class_id: this.entryForm.value.class_id,
             is_active: this.entryForm.value.is_active,
         }
 
@@ -172,7 +172,7 @@ export class ChapterListComponent implements OnInit {
     }
 
     deleteConfirmModal(item: any, template: TemplateRef<any>){
-        this.class_id = item.id;
+        this.chapter_id = item.id;
         this.modalRef = this.modalService.show(template);
     }
 
@@ -183,13 +183,13 @@ export class ChapterListComponent implements OnInit {
     
     declineDelete(): void {
         this.modalRef?.hide();
-        this.class_id = null;
+        this.chapter_id = null;
     }
 
     deleteSubmit(){
         this.blockUI.start('Deleting...');
         let param = {
-            id: this.class_id
+            id: this.chapter_id
         }
 
         this._service.post('admin/chapter-delete', param).subscribe(res => {
@@ -197,7 +197,7 @@ export class ChapterListComponent implements OnInit {
             this.blockUI.stop();
             this.modalHide();
             this.getChapterList();
-            this.class_id = null;
+            this.chapter_id = null;
         }, err => {
             this.blockUI.stop();
             this.toastr.warning(err.message, 'Attention!', { timeOut: 2000 });
@@ -207,9 +207,9 @@ export class ChapterListComponent implements OnInit {
     openEditModal(item: any, template: TemplateRef<any>) 
     {
         console.log(item)
-        this.modalTitle = "Update Chapter";
+        this.modalTitle = "Update Topic";
         this.entryForm.controls['id'].setValue(item.id);
-        this.entryForm.controls['class_id'].setValue(item.class_id);
+        // this.entryForm.controls['class_id'].setValue(item.class_id);
         this.entryForm.controls['name'].setValue(item.name);
         this.entryForm.controls['description'].setValue(item.description);
         this.entryForm.controls['is_active'].setValue(item.is_active);
@@ -267,7 +267,7 @@ export class ChapterListComponent implements OnInit {
     }
 
     modalHide() {
-        this.modalTitle = "Add New Chapter";
+        this.modalTitle = "Add New Topic";
         this.entryForm.controls['id'].setValue(null);
         this.submitted = false;
         this.modalRef?.hide();

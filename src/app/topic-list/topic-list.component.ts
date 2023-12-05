@@ -16,7 +16,7 @@ import { NgPlural } from '@angular/common';
 export class TopicListComponent implements OnInit {
     entryForm: FormGroup;
     modalRef?: BsModalRef;
-    modalTitle = "Add New Topic";
+    modalTitle = "Add New Video";
     submitted = false;
     returnUrl: string;
     is_authenticated = false;
@@ -52,19 +52,19 @@ export class TopicListComponent implements OnInit {
 
         this.entryForm = this.formBuilder.group({
             id: [null],
-            class_id: [null, [Validators.required]],
+            // class_id: [null, [Validators.required]],
             chapter_id: [null, [Validators.required]],
             title: [null, [Validators.required]],
             description: [null],
-            author_name: [null],
-            author_details: [null],
+            // author_name: [null],
+            // author_details: [null],
             raw_url: [null],
             s3_url: [null],
             youtube_url: [null],
             download_url: [null],
             duration: [null],
             rating: [5],
-            sequence: [null],
+            // sequence: [null],
             thumbnail: [''],
             is_active: [true]
         });
@@ -75,7 +75,7 @@ export class TopicListComponent implements OnInit {
         }
 
         this.getTopicList();
-        this.getClassList();
+        this.getChapterList();
     }
 
     get f() {
@@ -166,17 +166,17 @@ export class TopicListComponent implements OnInit {
             description: this.entryForm.value.description,
             title_bn: this.entryForm.value.title,
             description_bn: this.entryForm.value.description,
-            class_id: this.entryForm.value.class_id,
+            // class_id: this.entryForm.value.class_id,
             chapter_id: this.entryForm.value.chapter_id,
-            author_name: this.entryForm.value.author_name,
-            author_details: this.entryForm.value.author_details,
+            // author_name: this.entryForm.value.author_name,
+            // author_details: this.entryForm.value.author_details,
             raw_url: this.entryForm.value.raw_url,
             s3_url: this.entryForm.value.s3_url,
             youtube_url: this.entryForm.value.youtube_url,
             download_url: this.entryForm.value.download_url,
             duration: this.entryForm.value.duration,
             rating: this.entryForm.value.rating,
-            sequence: this.entryForm.value.sequence,
+            // sequence: this.entryForm.value.sequence,
             is_active: this.entryForm.value.is_active,
         }
 
@@ -240,31 +240,31 @@ export class TopicListComponent implements OnInit {
 
     openEditModal(item: any, template: TemplateRef<any>) 
     {
-        this.modalTitle = "Update Topic";
+        this.modalTitle = "Update Video";
         this.entryForm.controls['id'].setValue(item.id);
-        this.entryForm.controls['class_id'].setValue(item.class_id);
+        // this.entryForm.controls['class_id'].setValue(item.class_id);
         
-        this.onChangeClass({id: item.class_id});
+        // this.onChangeClass({id: item.class_id});
 
         this.entryForm.controls['chapter_id'].setValue(item.chapter_id);
         this.entryForm.controls['title'].setValue(item.title);
         this.entryForm.controls['description'].setValue(item.description);
-        this.entryForm.controls['author_name'].setValue(item.author_name);
-        this.entryForm.controls['author_details'].setValue(item.author_details);
+        // this.entryForm.controls['author_name'].setValue(item.author_name);
+        // this.entryForm.controls['author_details'].setValue(item.author_details);
         this.entryForm.controls['raw_url'].setValue(item.raw_url);
         this.entryForm.controls['s3_url'].setValue(item.s3_url);
         this.entryForm.controls['youtube_url'].setValue(item.youtube_url);
         this.entryForm.controls['download_url'].setValue(item.download_url);
         this.entryForm.controls['duration'].setValue(item.duration);
         this.entryForm.controls['rating'].setValue(item.rating);
-        this.entryForm.controls['sequence'].setValue(item.sequence);
+        // this.entryForm.controls['sequence'].setValue(item.sequence);
         this.entryForm.controls['is_active'].setValue(item.is_active);
 
         this.modalRef = this.modalService.show(template);
     }
 
     modalHide() {
-        this.modalTitle = "Add New Topic";
+        this.modalTitle = "Add New Video";
         this.entryForm.controls['id'].setValue(null);
         this.submitted = false;
         this.modalRef?.hide();
