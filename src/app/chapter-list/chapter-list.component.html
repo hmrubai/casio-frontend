@@ -9,20 +9,20 @@
                 <a (click)="openModal(template)" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm action-top-btn float-end">
                     <i class="fas fa-plus fa-sm text-white-50"></i> Add New Topic
                 </a>
-                <!--<ng-select [items]="classList" (change)="onChangeClass($event)"
+                <ng-select [items]="classList" (change)="onChangeClass($event)"
                     class="col-lg-3 float-end"
                     bindLabel="name" 
                     bindValue="id" 
-                    placeholder="Select Class">
-                </ng-select>-->
+                    placeholder="Select Chapter">
+                </ng-select>
             </div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <!--<th>Class</th>-->
-                            <th>Name</th>
+                            <th>Chapter</th>
+                            <th>Topic Name</th>
                             <th>Description</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -30,7 +30,7 @@
                     </thead>
                     <tbody>
                         <tr  *ngFor="let item of chapterList; let i = index;">
-                            <!--<td>{{ item.class_name }}</td>-->
+                            <td>{{ item.class_name }}</td>
                             <td>{{ item.name }}</td>
                             <td>{{ item.description }}</td>
                             <td>
@@ -54,7 +54,7 @@
                             </td>
                         </tr>
                         <tr *ngIf="chapterList.length <= 0">
-                            <td colspan="4">
+                            <td colspan="5">
                                 <span>No Data Found!</span>
                             </td>
                         </tr>
@@ -75,22 +75,22 @@
   </div>
   <div class="modal-body">
     <form class="p-4 mb-2" [formGroup]="entryForm">
-        <!--<h6 class="">Class</h6>
+        <h6 class="">Chapter</h6>
         <div class="input-group login-input">
             <ng-select [items]="classList"
                 class="input-select"
                 bindLabel="name" 
                 bindValue="id" 
                 formControlName="class_id"
-                placeholder="Select Class"
+                placeholder="Select Chapter"
                 [ngClass]="{ 'is-invalid': submitted && f['class_id'].errors }">
             </ng-select>
         </div>
         <div class="input-group mb-3">
             <div *ngIf="submitted && f['class_id'].errors" class="error-text">
-                <span *ngIf="f['class_id'].errors?.['required']" class="text-danger error-level"> Class is required</span>
+                <span *ngIf="f['class_id'].errors?.['required']" class="text-danger error-level"> Chapter is required</span>
             </div>
-        </div>-->
+        </div>
         <h6 class="">Topic Name</h6>
         <div class="input-group login-input">
             <input type="text" class="form-control" formControlName="name"

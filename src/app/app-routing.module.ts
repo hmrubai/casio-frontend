@@ -62,6 +62,15 @@ const routes: Routes = [
         ]
     },
     {
+        path: 'osd-list', 
+        children: [
+            {
+                path: '',
+                loadChildren: () => import('./osd-list/osd-list.module').then(m => m.OsdListModule)
+            }
+        ]
+    },
+    {
         path: 'query-list', 
         children: [
             {

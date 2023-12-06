@@ -1,13 +1,13 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Class List</h1>
+    <h1 class="h3 mb-0 text-gray-800">Chapter List</h1>
 </div>
 <div class="row">
     <div class="col-xl-12 col-lg-12">
         <div class="card shadow mb-4">
             <div class="card-header py-2 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary"> All Class List</h6>
+                <h6 class="m-0 font-weight-bold text-primary"> All Chapter List</h6>
                 <a (click)="openModal(template)" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                    <i class="fas fa-plus fa-sm text-white-50"></i> Add New Class
+                    <i class="fas fa-plus fa-sm text-white-50"></i> Add New Chapter
                 </a>
             </div>
             <div class="card-body">
@@ -67,14 +67,14 @@
   </div>
   <div class="modal-body">
     <form class="p-4 mb-2" [formGroup]="entryForm">
-        <h6 class="">Class Name</h6>
+        <h6 class="">Chapter Name</h6>
         <div class="input-group login-input">
             <input type="text" class="form-control" formControlName="class_name"
-                [ngClass]="{ 'is-invalid': submitted && f['class_name'].errors }" placeholder="Class Name" autocomplete="off">
+                [ngClass]="{ 'is-invalid': submitted && f['class_name'].errors }" placeholder="Chapter Name" autocomplete="off">
         </div>
         <div class="input-group mb-3">
             <div *ngIf="submitted && f['class_name'].errors" class="error-text">
-                <span *ngIf="f['class_name'].errors?.['required']" class="text-danger error-level"> Class Name is required</span>
+                <span *ngIf="f['class_name'].errors?.['required']" class="text-danger error-level"> Chapter Name is required</span>
             </div>
         </div>
         <h6 class="">Description</h6>
@@ -108,7 +108,7 @@
 
 <ng-template #confirmDeleteTemplate>
   <div class="modal-body text-center">
-    <p class="text-danger">Do you want to delete class?</p>
+    <p class="text-danger">Do you want to delete Chapter?</p>
     <button type="button" class="btn btn-outline-danger mx-2" (click)="confirmDelete()" >Delete</button>
     <button type="button" class="btn btn-outline-secondary" (click)="declineDelete()" >No</button>
   </div>

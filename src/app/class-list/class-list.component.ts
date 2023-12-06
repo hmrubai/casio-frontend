@@ -18,7 +18,7 @@ export class ClassListComponent implements OnInit {
     modalRef?: BsModalRef;
     submitted = false;
     returnUrl: string;
-    modalTitle = "Add New Class";
+    modalTitle = "Add New Chapter";
     is_authenticated = false;
     currentUser: any = null;
 
@@ -175,7 +175,7 @@ export class ClassListComponent implements OnInit {
 
     openEditModal(item: any, template: TemplateRef<any>) 
     {
-        this.modalTitle = "Update Class";
+        this.modalTitle = "Update Chapter";
         this.entryForm.controls['id'].setValue(item.id);
         this.entryForm.controls['class_name'].setValue(item.name);
         this.entryForm.controls['description'].setValue(item.description);
@@ -235,7 +235,7 @@ export class ClassListComponent implements OnInit {
 
     modalHide() {
         this.entryForm.controls['id'].setValue(null);
-        this.modalTitle = "Add New Class";
+        this.modalTitle = "Add New Chapter";
         this.submitted = false;
         this.modalRef?.hide();
         this.entryForm.reset();
