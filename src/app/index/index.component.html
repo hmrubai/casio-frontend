@@ -6,30 +6,12 @@
 </div>
 <div class="row" *ngIf="is_loaded">
     <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Total Class
-                        </div>
-                        <div
-                            class="h5 mb-0 font-weight-bold text-gray-800">{{ class_count }}</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-list fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-success shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            Total Chapter
+                            Total Topic
                         </div>
                         <div
                             class="h5 mb-0 font-weight-bold text-gray-800">{{ chapter_count }}</div>
@@ -47,7 +29,7 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                            Total Topics
+                            Total Videos
                         </div>
                         <div
                             class="row no-gutters align-items-center">
@@ -84,13 +66,31 @@
             </div>
         </div>
     </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Total Notifications
+                        </div>
+                        <div
+                            class="h5 mb-0 font-weight-bold text-gray-800">{{ notification_count }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-list fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="row" *ngIf="is_loaded">
     <div class="col-xl-8 col-lg-7">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary"> Class List</h6>
+                <h6 class="m-0 font-weight-bold text-primary"> Top 5 Topic List</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -98,20 +98,20 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Description</th>
+                                <!--<th>Description</th>--> 
                                 <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr  *ngFor="let item of classList; let i = index;">
+                            <tr  *ngFor="let item of chapter_list; let i = index;">
                                 <td>{{ item.name }}</td>
-                                <td>{{ item.description }}</td>
+                                <!--<td>{{ item.description }}</td>-->
                                 <td>
                                     <span *ngIf="item.is_active" class="badge badge-pill badge-success">Active</span>
                                     <span *ngIf="!item.is_active" class="badge badge-pill badge-secondary">Inactive</span>
                                 </td>
                             </tr>
-                            <tr *ngIf="classList.length <= 0">
+                            <tr *ngIf="chapter_list.length <= 0">
                                 <td colspan="4">
                                     <span>No Data Found!</span>
                                 </td>
@@ -153,20 +153,41 @@
                         </tbody>
                     </table>
                 </div>
-                <!--<div class="mt-4 text-center small">
-                    <span class="mr-2">
-                        <i class="fas fa-circle text-primary"></i>
-                        Direct
-                    </span>
-                    <span class="mr-2">
-                        <i class="fas fa-circle text-success"></i>
-                        Social
-                    </span>
-                    <span class="mr-2">
-                        <i class="fas fa-circle text-info"></i>
-                        Referral
-                    </span>
-                </div>-->
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-12 col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary"> Top 3 Video List</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <!--<th>Description</th>--> 
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr  *ngFor="let item of topic_list; let i = index;">
+                                <td>{{ item.title }}</td>
+                                <!--<td>{{ item.description }}</td>-->
+                                <td>
+                                    <span *ngIf="item.is_active" class="badge badge-pill badge-success">Active</span>
+                                    <span *ngIf="!item.is_active" class="badge badge-pill badge-secondary">Inactive</span>
+                                </td>
+                            </tr>
+                            <tr *ngIf="topic_list.length <= 0">
+                                <td colspan="4">
+                                    <span>No Data Found!</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

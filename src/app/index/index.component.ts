@@ -23,6 +23,8 @@ export class IndexComponent implements OnInit {
 
     dashboard_summary: Array<any> = [];
     classList: Array<any> = [];
+    topic_list: Array<any> = [];
+    chapter_list: Array<any> = [];
     notificationList: Array<any> = [];
     is_loaded = false;
 
@@ -30,6 +32,7 @@ export class IndexComponent implements OnInit {
     chapter_count = 0;
     topic_count = 0;
     shop_count = 0;
+    notification_count = 0;
 
     public settings: any = {};
     banner_image = 'assets/images/saas-banner.jpeg';
@@ -67,8 +70,11 @@ export class IndexComponent implements OnInit {
                 this.chapter_count = res.data.chapter_count;
                 this.topic_count = res.data.topic_count;
                 this.shop_count = res.data.store_count;
+                this.notification_count = res.data.notification_count;
 
                 this.classList = res.data.class_list;
+                this.topic_list = res.data.topic_list;
+                this.chapter_list = res.data.chapter_list;
                 this.notificationList = res.data.top_notification_list;
 
                 this.is_loaded = true;
