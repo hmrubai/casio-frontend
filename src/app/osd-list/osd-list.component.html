@@ -22,6 +22,7 @@
                             <th>Division</th>
                             <th>Address</th>
                             <th>Status</th>
+                            <th style="width:9%">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,19 +42,16 @@
                                     <span class="icon text-white-50">
                                         <i class="fas fa-pencil"></i>
                                     </span>
-                                    <span class="text">Edit</span>
                                 </a>
-
                                 <a (click)="deleteConfirmModal(item, confirmDeleteTemplate)" class="btn btn-danger btn-icon-split btn-sm">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-trash"></i>
                                     </span>
-                                    <span class="text">Delete</span>
                                 </a>
                             </td>
                         </tr>
                         <tr *ngIf="shopList.length <= 0">
-                            <td colspan="5">
+                            <td colspan="8">
                                 <span>No Data Found!</span>
                             </td>
                         </tr>

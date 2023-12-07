@@ -9,25 +9,31 @@
                 <a (click)="openModal(template)" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm action-top-btn float-end">
                     <i class="fas fa-plus fa-sm text-white-50"></i> Add New Video
                 </a>
-                <!-- <ng-select [items]="classList" (change)="onChangeClass($event)"
+                <ng-select [items]="classList" (change)="onChangeClassGetVideo($event)"
+                    [(ngModel)]="filter_chapter_id"
                     class="col-lg-3 float-end"
                     bindLabel="name" 
                     bindValue="id" 
-                    placeholder="Select Class">
-                </ng-select> -->
+                    placeholder="Select Chapter">
+                </ng-select>
             </div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
+                            <th>Chapter</th>
                             <th>Video Title</th>
                             <th>Status</th>
-                            <th>Action</th>
+                            <th width="9%">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr  *ngFor="let item of topicList; let i = index;">
+                            <td>
+                                {{ item.chapter_name }}<br/>
+                                <small>{{ item.class_name }}</small>
+                            </td>
                             <td>{{ item.title }}</td>
                             <td>
                               <span *ngIf="item.is_active" class="badge badge-pill badge-success">Active</span>
@@ -38,19 +44,17 @@
                                     <span class="icon text-white-50">
                                         <i class="fas fa-pencil"></i>
                                     </span>
-                                    <span class="text">Edit</span>
                                 </a>
 
                                 <a (click)="deleteConfirmModal(item, confirmDeleteTemplate)" class="btn btn-danger btn-icon-split btn-sm">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-trash"></i>
                                     </span>
-                                    <span class="text">Delete</span>
                                 </a>
                             </td>
                         </tr>
                         <tr *ngIf="topicList.length <= 0">
-                            <td colspan="3">
+                            <td colspan="6">
                                 <span>No Data Found!</span>
                             </td>
                         </tr>
@@ -71,14 +75,14 @@
   </div>
   <div class="modal-body">
     <form class="p-4 mb-2" [formGroup]="entryForm">
-        <!--<h6 class="">Class</h6>
+        <h6 class="">Chapter</h6>
         <div class="input-group login-input">
             <ng-select [items]="classList" (change)="onChangeClass($event)"
                 class="input-select"
                 bindLabel="name" 
                 bindValue="id" 
                 formControlName="class_id"
-                placeholder="Select Class"
+                placeholder="Select Chapter"
                 [ngClass]="{ 'is-invalid': submitted && f['class_id'].errors }">
             </ng-select>
         </div>
@@ -86,7 +90,7 @@
             <div *ngIf="submitted && f['class_id'].errors" class="error-text">
                 <span *ngIf="f['class_id'].errors?.['required']" class="text-danger error-level"> Class is required</span>
             </div>
-        </div>-->
+        </div>
         <h6 class="">Topic</h6>
         <div class="input-group login-input">
             <ng-select [items]="chapterList"

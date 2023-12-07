@@ -235,6 +235,7 @@ export class ClassListComponent implements OnInit {
 
     modalHide() {
         this.entryForm.controls['id'].setValue(null);
+        this.entryForm.controls['is_active'].setValue(true);
         this.modalTitle = "Add New Chapter";
         this.submitted = false;
         this.modalRef?.hide();

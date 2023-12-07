@@ -21,6 +21,7 @@ export class TopicListComponent implements OnInit {
     returnUrl: string;
     is_authenticated = false;
     currentUser: any = null;
+    filter_chapter_id: string = '';
 
     fileHolder: File | null;
 
@@ -52,7 +53,7 @@ export class TopicListComponent implements OnInit {
 
         this.entryForm = this.formBuilder.group({
             id: [null],
-            // class_id: [null, [Validators.required]],
+            class_id: [null, [Validators.required]],
             chapter_id: [null, [Validators.required]],
             title: [null, [Validators.required]],
             description: [null],
@@ -75,7 +76,7 @@ export class TopicListComponent implements OnInit {
         }
 
         this.getTopicList();
-        this.getChapterList();
+        this.getClassList();
     }
 
     get f() {
@@ -107,13 +108,33 @@ export class TopicListComponent implements OnInit {
     }
 
     onChangeClass(event){
+        this.entryForm.controls['chapter_id'].setValue(null);
+        this.chapterList = [];
         if(!event){
-            this.getChapterList();
             return;
         }
         this.blockUI.start('Loading...');
         this._service.get('admin/chapter-list-by-id/' + event.id).subscribe(res => {
             this.chapterList = res.data;
+            this.is_loaded = true;
+            this.blockUI.stop();
+        }, err => {
+            this.blockUI.stop();
+        });
+    }
+
+    onChangeClassGetVideo(event){
+        if(!event){
+            return;
+        }
+        this.blockUI.start('Loading...');
+        let params = {
+            class_id: event.id
+        }
+
+        this.topicList = [];
+        this._service.post('admin/filter-topic-list', params).subscribe(res => {
+            this.topicList = res.data;
             this.is_loaded = true;
             this.blockUI.stop();
         }, err => {
@@ -166,7 +187,7 @@ export class TopicListComponent implements OnInit {
             description: this.entryForm.value.description,
             title_bn: this.entryForm.value.title,
             description_bn: this.entryForm.value.description,
-            // class_id: this.entryForm.value.class_id,
+            class_id: this.entryForm.value.class_id,
             chapter_id: this.entryForm.value.chapter_id,
             // author_name: this.entryForm.value.author_name,
             // author_details: this.entryForm.value.author_details,
@@ -193,7 +214,13 @@ export class TopicListComponent implements OnInit {
             res => {
                 this.blockUI.stop();
                 this.modalHide();
-                this.getTopicList();
+
+                if(this.filter_chapter_id){
+                    this.onChangeClassGetVideo({id: this.filter_chapter_id});
+                }else{
+                    this.getTopicList();
+                }
+
                 this.toastr.success(res.message, 'Success!', { timeOut: 3000 });
                 this.urls = [];
                 this.files = [];
@@ -230,7 +257,13 @@ export class TopicListComponent implements OnInit {
             this.toastr.success(res.message, 'Success!', { timeOut: 2000 });
             this.blockUI.stop();
             this.modalHide();
-            this.getTopicList();
+
+            if(this.filter_chapter_id){
+                this.onChangeClassGetVideo({id: this.filter_chapter_id});
+            }else{
+                this.getTopicList();
+            }
+            
             this.class_id = null;
         }, err => {
             this.blockUI.stop();
@@ -242,9 +275,8 @@ export class TopicListComponent implements OnInit {
     {
         this.modalTitle = "Update Video";
         this.entryForm.controls['id'].setValue(item.id);
-        // this.entryForm.controls['class_id'].setValue(item.class_id);
-        
-        // this.onChangeClass({id: item.class_id});
+        this.entryForm.controls['class_id'].setValue(item.class_id);
+        this.onChangeClass({id: item.class_id});
 
         this.entryForm.controls['chapter_id'].setValue(item.chapter_id);
         this.entryForm.controls['title'].setValue(item.title);
