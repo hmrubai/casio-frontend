@@ -1,0 +1,118 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Manual Book</h1>
+</div>
+<div class="row">
+    <div class="col-xl-12 col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-2 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary"> All Manual Book</h6>
+                <!--<a (click)="openModal(template)" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                    <i class="fas fa-plus fa-sm text-white-50"></i> Add Manual Book
+                </a>-->
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr  *ngFor="let item of bookList; let i = index;">
+                            <td>{{ item.title }}</td>
+                            <td>{{ item.description }}</td>
+                            <td>
+                              <span *ngIf="item.is_active" class="badge badge-pill badge-success">Active</span>
+                              <span *ngIf="!item.is_active" class="badge badge-pill badge-secondary">Inactive</span>
+                            </td>
+                            <td>
+                              <a (click)="openEditModal(item, template)" class="btn btn-primary btn-icon-split btn-sm mx-2">
+                                  <span class="icon text-white-50">
+                                      <i class="fas fa-pencil"></i>
+                                  </span>
+                                  <span class="text">Update</span>
+                              </a>
+
+                              <!--<a (click)="deleteConfirmModal(item, confirmDeleteTemplate)" class="btn btn-danger btn-icon-split btn-sm">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-trash"></i>
+                                </span>
+                                <span class="text">Delete</span>
+                            </a>-->
+                            </td>
+                        </tr>
+                        <tr *ngIf="bookList.length <= 0">
+                            <td colspan="4">
+                                <span>No Data Found!</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h5 class="modal-title pull-left"><i class="fa-solid fa-folder-plus"></i> {{ modalTitle }}</h5>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalHide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="p-4 mb-2" [formGroup]="entryForm">
+        <h6 class="">Book Title</h6>
+        <div class="input-group login-input">
+            <input type="text" class="form-control" formControlName="book_title"
+                [ngClass]="{ 'is-invalid': submitted && f['book_title'].errors }" placeholder="Book Title" autocomplete="off">
+        </div>
+        <div class="input-group mb-3">
+            <div *ngIf="submitted && f['book_title'].errors" class="error-text">
+                <span *ngIf="f['book_title'].errors?.['required']" class="text-danger error-level"> Book Title is required</span>
+            </div>
+        </div>
+        <h6 class="">Description</h6>
+        <div class="input-group login-input">
+            <textarea class="form-control" formControlName="description" [ngClass]="{ 'is-invalid': submitted && f['description'].errors }" placeholder="Description" cols="30" rows="5"></textarea>
+        </div>
+        <div class="input-group mb-3">
+            <div *ngIf="submitted && f['description'].errors" class="error-text">
+                <span *ngIf="f['description'].errors?.['required']" class="text-danger error-level"> Description is required</span>
+            </div>
+        </div>
+        <div class="form-group mb-3">
+            <label for="file">Attachment</label>
+            <input formControlName="attachment" id="attachment" type="file" class="form-control" (change)="onSelectFile($event)">
+            <div *ngIf="f['attachment'].touched && f['attachment'].invalid" class="alert alert-danger">
+                <div *ngIf="f['attachment'].errors && f['attachment'].errors['required']">Attachment is required.</div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-12">
+                <div class="custom-control custom-checkbox col-form-label">
+                  <input type="checkbox" formControlName="is_active" id="is_active" class="custom-control-input" style="left: 2px !important;" [ngClass]="{ 'is-invalid': submitted && f['is_active'].errors }">
+                  <label class="custom-control-label" for="is_active"> Is Active?</label>
+                </div>
+            </div>
+        </div>
+        <button type="submit" (click)="formSubmit()" class="btn btn-success form-control">Submit</button>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #confirmDeleteTemplate>
+  <div class="modal-body text-center">
+    <p class="text-danger">Do you want to delete Chapter?</p>
+    <button type="button" class="btn btn-outline-danger mx-2" (click)="confirmDelete()" >Delete</button>
+    <button type="button" class="btn btn-outline-secondary" (click)="declineDelete()" >No</button>
+  </div>
+</ng-template>
+
+
+<block-ui></block-ui>

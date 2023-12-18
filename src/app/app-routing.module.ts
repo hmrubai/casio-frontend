@@ -71,6 +71,15 @@ const routes: Routes = [
         ]
     },
     {
+        path: 'manual-book', 
+        children: [
+            {
+                path: '',
+                loadChildren: () => import('./manual-book/manual-book.module').then(m => m.ManualBookModule)
+            }
+        ]
+    },
+    {
         path: 'query-list', 
         children: [
             {
